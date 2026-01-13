@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36705.20 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTROPToLogoIntegration", "RTROPToLogoIntegration\RTROPToLogoIntegration.csproj", "{02D5BEC7-2B1C-4367-A3A3-B2C35339BDE6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02D5BEC7-2B1C-4367-A3A3-B2C35339BDE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02D5BEC7-2B1C-4367-A3A3-B2C35339BDE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02D5BEC7-2B1C-4367-A3A3-B2C35339BDE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02D5BEC7-2B1C-4367-A3A3-B2C35339BDE6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A1FAE503-B9C2-4059-8A15-BCF8183A76DB}
+	EndGlobalSection
+EndGlobal
