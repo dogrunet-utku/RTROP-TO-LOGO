@@ -383,3 +383,36 @@ Hata Numarası: 207,Durum: 1,Sınıf:16
 2026-02-16 14:04:20.164 +03:00 [INF] MRP İşlemi Tamamlandı. 175 adet ürün işlendi. Fiş No: MRP202602-000005
 2026-02-16 14:04:20.177 +03:00 [INF] HTTP POST /api/Mrp/calculate-json responded 200 in 61540.3771 ms
 2026-02-16 14:29:14.174 +03:00 [INF] Stopped message listener at "stub://replies/"
+2026-02-16 14:41:47.614 +03:00 [INF] Uygulama başlatılıyor...
+2026-02-16 14:41:48.476 +03:00 [INF] Exporting Open Telemetry metrics from Wolverine with name Wolverine:RTROPToLogoIntegration, version 5.15.0.0
+2026-02-16 14:41:48.501 +03:00 [INF] Starting Wolverine messaging for application assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+2026-02-16 14:41:48.501 +03:00 [INF] The Wolverine code generation mode is Dynamic. This is suitable for development, but you may want to opt into other options for production usage to reduce start up time and resource utilization.
+2026-02-16 14:41:48.501 +03:00 [INF] See https://wolverine.netlify.app/guide/codegen.html for more information
+2026-02-16 14:41:48.507 +03:00 [INF] Searching assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null for Wolverine message handlers
+2026-02-16 14:41:48.530 +03:00 [INF] Wolverine assigned node id for envelope persistence is 1535977641
+2026-02-16 14:41:48.543 +03:00 [INF] Started message listening at "stub://replies/"
+2026-02-16 14:42:02.739 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-02-16 14:43:06.687 +03:00 [INF] Logo MRP Kaydı Başarılı. Fiş No: MRP202602-00001
+2026-02-16 14:43:06.688 +03:00 [INF] MRP İşlemi Tamamlandı. 175 adet ürün işlendi. Fiş No: MRP202602-00001
+2026-02-16 14:43:06.708 +03:00 [INF] HTTP POST /api/Mrp/calculate-json responded 200 in 63986.7040 ms
+2026-02-16 14:49:58.281 +03:00 [INF] Uygulama başlatılıyor...
+2026-02-16 14:49:59.130 +03:00 [INF] Exporting Open Telemetry metrics from Wolverine with name Wolverine:RTROPToLogoIntegration, version 5.15.0.0
+2026-02-16 14:49:59.156 +03:00 [INF] Starting Wolverine messaging for application assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+2026-02-16 14:49:59.156 +03:00 [INF] The Wolverine code generation mode is Dynamic. This is suitable for development, but you may want to opt into other options for production usage to reduce start up time and resource utilization.
+2026-02-16 14:49:59.156 +03:00 [INF] See https://wolverine.netlify.app/guide/codegen.html for more information
+2026-02-16 14:49:59.162 +03:00 [INF] Searching assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null for Wolverine message handlers
+2026-02-16 14:49:59.189 +03:00 [INF] Wolverine assigned node id for envelope persistence is -1162070439
+2026-02-16 14:49:59.205 +03:00 [INF] Started message listening at "stub://replies/"
+2026-02-16 14:50:01.874 +03:00 [INF] Stopped message listener at "stub://replies/"
+2026-02-16 14:50:15.485 +03:00 [INF] Uygulama başlatılıyor...
+2026-02-16 14:50:16.357 +03:00 [INF] Exporting Open Telemetry metrics from Wolverine with name Wolverine:RTROPToLogoIntegration, version 5.15.0.0
+2026-02-16 14:50:16.380 +03:00 [INF] Starting Wolverine messaging for application assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+2026-02-16 14:50:16.381 +03:00 [INF] The Wolverine code generation mode is Dynamic. This is suitable for development, but you may want to opt into other options for production usage to reduce start up time and resource utilization.
+2026-02-16 14:50:16.381 +03:00 [INF] See https://wolverine.netlify.app/guide/codegen.html for more information
+2026-02-16 14:50:16.387 +03:00 [INF] Searching assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null for Wolverine message handlers
+2026-02-16 14:50:16.411 +03:00 [INF] Wolverine assigned node id for envelope persistence is 1358340022
+2026-02-16 14:50:16.427 +03:00 [INF] Started message listening at "stub://replies/"
+2026-02-16 14:50:53.106 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-02-16 14:51:44.257 +03:00 [INF] Logo MRP Kaydı Başarılı. Fiş No: MRP202602-000002
+2026-02-16 14:51:44.259 +03:00 [INF] MRP İşlemi Tamamlandı. 175 adet ürün işlendi. Fiş No: MRP202602-000002
+2026-02-16 14:51:44.278 +03:00 [INF] HTTP POST /api/Mrp/calculate-json responded 200 in 51180.3527 ms
