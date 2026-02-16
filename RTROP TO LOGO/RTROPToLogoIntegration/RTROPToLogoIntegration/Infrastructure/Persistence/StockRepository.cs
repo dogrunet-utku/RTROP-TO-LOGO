@@ -181,5 +181,39 @@ namespace RTROPToLogoIntegration.Infrastructure.Persistence
 
             return newFicheNo;
         }
+        /// <summary>
+        /// Ürünün tipini (MAMÜL=12, YARI=11, HAM=10) bulur.
+        /// </summary>
+        public async Task<string> GetCardTypeAsync(string itemCode, string firmNo)
+        {
+            string sql = $"SELECT CARDTYPE FROM LG_{firmNo}_ITEMS WITH(NOLOCK) WHERE CODE=@Code";
+            using var conn = new SqlConnection(GetConnectionString());
+            var result = await conn.ExecuteScalarAsync<object>(sql, new { Code = itemCode });
+            return result?.ToString() ?? "";
+        }
+
+        /// <summary>
+        /// Ürünün BOMMASTERREF ve VALIDREVREF bilgilerini bulur (Form1.cs -> GetBomref).
+        /// </summary>
+        public async Task<(int BomRef, int BomRevRef)> GetBomInfoAsync(int itemRef, string firmNo)
+        {
+            string sql = $@"SELECT TOP 1 LOGICALREF, VALIDREVREF FROM LG_{firmNo}_BOMASTER WITH(NOLOCK) WHERE MAINPRODREF=@ItemRef ORDER BY LOGICALREF DESC";
+            using var conn = new SqlConnection(GetConnectionString());
+            var result = await conn.QueryFirstOrDefaultAsync(sql, new { ItemRef = itemRef });
+            
+            if (result == null) return (0, 0);
+            return (result.LOGICALREF, result.VALIDREVREF);
+        }
+
+        /// <summary>
+        /// Hammadde ise tedarikçisini (CLIENTREF) bulur (Form1.cs -> GetClientRef).
+        /// </summary>
+        public async Task<int> GetClientRefAsync(int itemRef, string firmNo)
+        {
+            string sql = $@"SELECT TOP 1 CLIENTREF FROM LG_{firmNo}_SUPPASGN WITH(NOLOCK) WHERE ITEMREF=@ItemRef AND CLCARDTYPE=1 ORDER BY PRIORITY ASC";
+            using var conn = new SqlConnection(GetConnectionString());
+            var result = await conn.ExecuteScalarAsync<int?>(sql, new { ItemRef = itemRef });
+            return result ?? 0;
+        }
     }
 }

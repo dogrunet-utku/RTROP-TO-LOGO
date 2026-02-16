@@ -27,5 +27,6 @@ namespace RTROPToLogoIntegration.Domain.Models
         public int BOMMASTERREF { get; set; }
         public int BOMREVREF { get; set; }
         public int CLIENTREF { get; set; }
+        public int SOURCE_INDEX { get; set; } // Phase 17: Ambar (Warehouse)
     }
 }

@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using RTROPToLogoIntegration.Application.DTOs;
 using RTROPToLogoIntegration.Domain.Models;
 using RTROPToLogoIntegration.Infrastructure.Persistence;
@@ -17,15 +18,22 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
     {
         private readonly StockRepository _stockRepository;
         private readonly LogoClientService _logoClientService;
+        private readonly IConfiguration _config;
 
-        public ProcessMrpCommandHandler(StockRepository stockRepository, LogoClientService logoClientService)
+        public ProcessMrpCommandHandler(StockRepository stockRepository, LogoClientService logoClientService, IConfiguration config)
         {
             _stockRepository = stockRepository;
             _logoClientService = logoClientService;
+            _config = config;
         }
 
         public async Task<bool> Handle(ProcessMrpCommand request)
         {
+            // Config'den ambarları al
+            int mmWare = int.Parse(_config["WarehouseSettings:MM_Ambar"] ?? "1");
+            int ymWare = int.Parse(_config["WarehouseSettings:YM_Ambar"] ?? "2");
+            int hmWare = int.Parse(_config["WarehouseSettings:HM_Ambar"] ?? "3");
+
             // 1. Fiş Numarasını Üret (Form1.cs mantığı)
             var ficheNo = await _stockRepository.GetLastMRPNumberAsync(request.FirmNo, request.PeriodNr);
 
@@ -42,7 +50,7 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
             foreach (var item in request.Items)
             {
                 // 1. Ref, UnitCode ve CardType Çek (Db'den her zaman taze veri)
-                var (itemRef, unitCode, cardType) = await _stockRepository.GetItemRefAndUnitByCodeAsync(item.ItemID, request.FirmNo);
+                var (itemRef, unitCode, _) = await _stockRepository.GetItemRefAndUnitByCodeAsync(item.ItemID, request.FirmNo);
                 
                 if (itemRef == 0)
                 {
@@ -66,6 +74,41 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
                 // 4. Karar ve Güncelleme
                 if (need > 0 && item.PlanningType == "MTS")
                 {
+                    // 1. TİP VE AMBAR BELİRLEME
+                    // Previous call already returned CardType but let's use the dedicated method to be explicit as per instructions
+                    string cardType = await _stockRepository.GetCardTypeAsync(item.ItemID, request.FirmNo);
+                    
+                    int sourceIndex = 0; // Varsayılan
+                    int meetType = 0;
+                    int bomRef = 0, bomRevRef = 0, clientRef = 0;
+
+                    // Form1.cs Satır 132-146 Mantığı
+                    if (cardType == "10") // HAMMADDE
+                    {
+                        sourceIndex = hmWare;
+                        meetType = 0; // Satınalma
+                        clientRef = await _stockRepository.GetClientRefAsync(itemRef, request.FirmNo);
+                    }
+                    else if (cardType == "11") // YARI MAMUL
+                    {
+                        sourceIndex = ymWare;
+                        meetType = 1; // Üretim
+                        (bomRef, bomRevRef) = await _stockRepository.GetBomInfoAsync(itemRef, request.FirmNo);
+                    }
+                    else if (cardType == "12") // MAMUL
+                    {
+                        sourceIndex = mmWare;
+                        meetType = 1; // Üretim
+                        (bomRef, bomRevRef) = await _stockRepository.GetBomInfoAsync(itemRef, request.FirmNo);
+                    }
+                    else 
+                    {
+                        // Diğer tipler (örn. Ticari Mal - 1) için varsayılanlar
+                        // Form1.cs logic'inde bunlar genelde işlenmiyor ama burada fallback olarak kaynak ambarı 0 geçiyoruz.
+                        // Güvenlik için loglayabiliriz.
+                        Log.Debug($"Bilinmeyen CardType: {cardType} Item: {item.ItemID}");
+                    }
+
                     // Logo'da SPECODE2 (MTS olarak) güncelle
                     await _stockRepository.UpdateItemSpeCode2Async(itemRef, "MTS", request.FirmNo);
                     
@@ -96,30 +139,15 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
                         AMOUNT = need,
                         UNIT_CODE = unitCode, 
                         MRP_HEAD_TYPE = 2, // Varsayılan değer
-                        STATUS = 1 
+                        STATUS = 1,
+                        
+                        // YENİ ALANLAR (Form1.cs mantığı)
+                        SOURCE_INDEX = sourceIndex, 
+                        MEET_TYPE = meetType,
+                        BOMMASTERREF = bomRef,
+                        BOMREVREF = bomRevRef,
+                        CLIENTREF = clientRef
                     };
-
-                    // Form1.cs logic'ine uygun MEET_TYPE Belirleme
-                    // User Request: Excel'den ItemType okunmayacak, biz bulacağız.
-                    // CardType: 10(Hammadde), 11(Yarı Mamul), 12(Mamul)
-                    
-                    if (cardType == 11 || cardType == 12)
-                    {
-                        // Üretim (Production)
-                        transItem.MEET_TYPE = 1; 
-                        transItem.BOMMASTERREF = item.BomMasterRef;
-                        transItem.BOMREVREF = item.BomRevRef;
-                    }
-                    else
-                    {
-                        // Satınalma (Purchasing) - Hammadde(10), Ticari Mal(1) vb.
-                        transItem.MEET_TYPE = 0; 
-                        transItem.CLIENTREF = item.ClientRef;
-                    }
-
-                    // Ambar (Warehouse) hakkında:
-                    // Kullanıcı "Ambar... bizim tarafımızdan doldurulacak" dedi ancak "Logo'ya post edilmeyecek" dedi.
-                    // Bu nedenle TransactionItem içine eklemedik. Header'da da varsayılan değerler geçerli olabilir.
 
                     mrpList.TRANSACTIONS.items.Add(transItem);
                 }
