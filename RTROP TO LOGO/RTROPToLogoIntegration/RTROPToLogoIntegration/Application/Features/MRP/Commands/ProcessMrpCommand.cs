@@ -30,9 +30,9 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
         public async Task<bool> Handle(ProcessMrpCommand request)
         {
             // Config'den ambarları al
-            int mmWare = int.Parse(_config["WarehouseSettings:MM_Ambar"] ?? "1");
+            int mmWare = int.Parse(_config["WarehouseSettings:MM_Ambar"] ?? "3");
             int ymWare = int.Parse(_config["WarehouseSettings:YM_Ambar"] ?? "2");
-            int hmWare = int.Parse(_config["WarehouseSettings:HM_Ambar"] ?? "3");
+            int hmWare = int.Parse(_config["WarehouseSettings:HM_Ambar"] ?? "1");
 
             // 1. Fiş Numarasını Üret (Form1.cs mantığı)
             var ficheNo = await _stockRepository.GetLastMRPNumberAsync(request.FirmNo, request.PeriodNr);
@@ -68,11 +68,11 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
                 
                 var netStock = stockQty + openPo; 
                 var ropGap = item.ROP - netStock; 
-                
+            
                 double need = item.ROP_update_OrderQuantity - ropGap;
                 
                 // 4. Karar ve Güncelleme
-                if (need > 0 && item.PlanningType == "MTS")
+                if (netStock < item.ROP  && item.PlanningType == "MTS")
                 {
                     // 1. TİP VE AMBAR BELİRLEME
                     // Previous call already returned CardType but let's use the dedicated method to be explicit as per instructions

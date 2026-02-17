@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Utku\\Documents\\GitHub\\RTROP-TO-LOGO\\RTROP TO LOGO\\RTROPToLogoIntegration\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{02D5BEC7-2B1C-4367-A3A3-B2C35339BDE6}|RTROPToLogoIntegration\\RTROPToLogoIntegration.csproj|c:\\users\\utku\\documents\\github\\rtrop-to-logo\\rtrop to logo\\rtroptologointegration\\rtroptologointegration\\application\\dtos\\mrprawitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02D5BEC7-2B1C-4367-A3A3-B2C35339BDE6}|RTROPToLogoIntegration\\RTROPToLogoIntegration.csproj|solutionrelative:rtroptologointegration\\application\\dtos\\mrprawitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{02D5BEC7-2B1C-4367-A3A3-B2C35339BDE6}|RTROPToLogoIntegration\\RTROPToLogoIntegration.csproj|c:\\users\\utku\\documents\\github\\rtrop-to-logo\\rtrop to logo\\rtroptologointegration\\rtroptologointegration\\rtroptologointegration.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
       "RelativeMoniker": "D:0:0:{02D5BEC7-2B1C-4367-A3A3-B2C35339BDE6}|RTROPToLogoIntegration\\RTROPToLogoIntegration.csproj|solutionrelative:rtroptologointegration\\rtroptologointegration.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     }
@@ -35,6 +39,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "MrpRawItemDto.cs",
+              "DocumentMoniker": "C:\\Users\\Utku\\Documents\\GitHub\\RTROP-TO-LOGO\\RTROP TO LOGO\\RTROPToLogoIntegration\\RTROPToLogoIntegration\\Application\\DTOs\\MrpRawItemDto.cs",
+              "RelativeDocumentMoniker": "RTROPToLogoIntegration\\Application\\DTOs\\MrpRawItemDto.cs",
+              "ToolTip": "C:\\Users\\Utku\\Documents\\GitHub\\RTROP-TO-LOGO\\RTROP TO LOGO\\RTROPToLogoIntegration\\RTROPToLogoIntegration\\Application\\DTOs\\MrpRawItemDto.cs",
+              "RelativeToolTip": "RTROPToLogoIntegration\\Application\\DTOs\\MrpRawItemDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T06:55:55.769Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "RTROPToLogoIntegration",
               "DocumentMoniker": "C:\\Users\\Utku\\Documents\\GitHub\\RTROP-TO-LOGO\\RTROP TO LOGO\\RTROPToLogoIntegration\\RTROPToLogoIntegration\\RTROPToLogoIntegration.csproj",
               "RelativeDocumentMoniker": "RTROPToLogoIntegration\\RTROPToLogoIntegration.csproj",

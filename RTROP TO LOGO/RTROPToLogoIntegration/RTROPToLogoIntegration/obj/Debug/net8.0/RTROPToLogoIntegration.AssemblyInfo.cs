@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RTROPToLogoIntegration")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c751e971808d57d59b372a3efd1629b213bd0038")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+62025797e0e63cf9f55ebd8c9ad9c580734e7fb5")]
 [assembly: System.Reflection.AssemblyProductAttribute("RTROPToLogoIntegration")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RTROPToLogoIntegration")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

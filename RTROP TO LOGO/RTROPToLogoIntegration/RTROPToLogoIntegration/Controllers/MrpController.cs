@@ -35,7 +35,7 @@ namespace RTROPToLogoIntegration.Controllers
 
             // Firm ve Period bilgisi Header veya Config'den alınabilir.
             if (!Request.Headers.TryGetValue("x-firm-no", out var firmNo))
-                return BadRequest("x-firm-no header gerekli.");
+                return BadRequest("x-firm-no header is required.");
 
             var periodNr = _configuration["Logo:PeriodNumber"] ?? "01";
 

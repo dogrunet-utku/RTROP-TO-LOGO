@@ -1,0 +1,48 @@
+2026-02-17 09:24:52.246 +03:00 [INF] Uygulama başlatılıyor...
+2026-02-17 09:25:01.549 +03:00 [INF] Exporting Open Telemetry metrics from Wolverine with name Wolverine:RTROPToLogoIntegration, version 5.15.0.0
+2026-02-17 09:25:01.695 +03:00 [INF] Starting Wolverine messaging for application assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+2026-02-17 09:25:01.696 +03:00 [INF] The Wolverine code generation mode is Dynamic. This is suitable for development, but you may want to opt into other options for production usage to reduce start up time and resource utilization.
+2026-02-17 09:25:01.697 +03:00 [INF] See https://wolverine.netlify.app/guide/codegen.html for more information
+2026-02-17 09:25:01.715 +03:00 [INF] Searching assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null for Wolverine message handlers
+2026-02-17 09:25:01.768 +03:00 [INF] Wolverine assigned node id for envelope persistence is -625662065
+2026-02-17 09:25:01.873 +03:00 [INF] Started message listening at "stub://replies/"
+2026-02-17 09:25:04.845 +03:00 [INF] HTTP GET /swagger responded 301 in 10.5923 ms
+2026-02-17 09:25:05.096 +03:00 [INF] HTTP GET /swagger/index.html responded 200 in 185.0231 ms
+2026-02-17 09:25:05.884 +03:00 [INF] HTTP GET /swagger/swagger-ui-standalone-preset.js responded 200 in 80.7160 ms
+2026-02-17 09:25:05.884 +03:00 [INF] HTTP GET /swagger/swagger-ui.css responded 200 in 96.2335 ms
+2026-02-17 09:25:06.214 +03:00 [INF] HTTP GET /swagger/swagger-ui-bundle.js responded 200 in 424.4734 ms
+2026-02-17 09:25:06.820 +03:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 27.2015 ms
+2026-02-17 09:26:02.514 +03:00 [INF] Kullanıcı başarıyla giriş yaptı. User: Admin
+2026-02-17 09:26:02.531 +03:00 [INF] HTTP POST /api/Auth/login responded 200 in 817.3926 ms
+2026-02-17 13:10:40.448 +03:00 [INF] Uygulama başlatılıyor...
+2026-02-17 13:10:42.213 +03:00 [INF] Exporting Open Telemetry metrics from Wolverine with name Wolverine:RTROPToLogoIntegration, version 5.15.0.0
+2026-02-17 13:10:42.334 +03:00 [INF] Starting Wolverine messaging for application assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+2026-02-17 13:10:42.334 +03:00 [INF] The Wolverine code generation mode is Dynamic. This is suitable for development, but you may want to opt into other options for production usage to reduce start up time and resource utilization.
+2026-02-17 13:10:42.334 +03:00 [INF] See https://wolverine.netlify.app/guide/codegen.html for more information
+2026-02-17 13:10:42.342 +03:00 [INF] Searching assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null for Wolverine message handlers
+2026-02-17 13:10:42.372 +03:00 [INF] Wolverine assigned node id for envelope persistence is -530246809
+2026-02-17 13:10:42.390 +03:00 [INF] Started message listening at "stub://replies/"
+2026-02-17 13:10:50.417 +03:00 [INF] HTTP GET /swagger/index.html responded 200 in 126.5539 ms
+2026-02-17 13:10:50.513 +03:00 [INF] HTTP GET /swagger/swagger-ui.css responded 200 in 20.1261 ms
+2026-02-17 13:10:50.513 +03:00 [INF] HTTP GET /swagger/swagger-ui-standalone-preset.js responded 200 in 12.4917 ms
+2026-02-17 13:10:50.539 +03:00 [INF] HTTP GET /swagger/swagger-ui-bundle.js responded 200 in 41.4361 ms
+2026-02-17 13:10:50.821 +03:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 113.6129 ms
+2026-02-17 13:13:59.940 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-02-17 13:13:59.966 +03:00 [INF] HTTP POST /api/auth responded 404 in 28.5097 ms
+2026-02-17 13:14:04.145 +03:00 [WRN] Hatalı giriş denemesi. User: string
+2026-02-17 13:14:04.173 +03:00 [INF] HTTP POST /api/Auth/login responded 401 in 238.9799 ms
+2026-02-17 13:14:14.698 +03:00 [INF] Kullanıcı başarıyla giriş yaptı. User: Admin
+2026-02-17 13:14:14.710 +03:00 [INF] HTTP POST /api/Auth/login responded 200 in 337.2086 ms
+2026-02-17 13:15:08.122 +03:00 [INF] HTTP POST /api/Mrp/calculate-json responded 400 in 78.2479 ms
+2026-02-17 13:15:41.438 +03:00 [INF] Logo MRP Kaydı Başarılı. Fiş No: MRP202602-00001
+2026-02-17 13:15:41.439 +03:00 [INF] MRP İşlemi Tamamlandı. 5 adet ürün işlendi. Fiş No: MRP202602-00001
+2026-02-17 13:15:41.447 +03:00 [INF] HTTP POST /api/Mrp/calculate-json responded 200 in 17966.1970 ms
+2026-02-17 13:56:03.879 +03:00 [INF] Logo MRP Kaydı Başarılı. Fiş No: MRP202602-00001
+2026-02-17 13:56:03.881 +03:00 [INF] MRP İşlemi Tamamlandı. 5 adet ürün işlendi. Fiş No: MRP202602-00001
+2026-02-17 13:56:03.882 +03:00 [INF] HTTP POST /api/Mrp/calculate-json responded 200 in 4899.9250 ms
+2026-02-17 13:56:04.065 +03:00 [INF] HTTP GET /swagger/index.html responded 200 in 0.7471 ms
+2026-02-17 13:56:04.531 +03:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 12.7425 ms
+2026-02-17 13:59:47.385 +03:00 [INF] Logo MRP Kaydı Başarılı. Fiş No: MRP202602-00001
+2026-02-17 13:59:47.385 +03:00 [INF] MRP İşlemi Tamamlandı. 5 adet ürün işlendi. Fiş No: MRP202602-00001
+2026-02-17 13:59:47.385 +03:00 [INF] HTTP POST /api/Mrp/calculate-json responded 200 in 1806.7112 ms
+2026-02-17 14:53:56.730 +03:00 [INF] Stopped message listener at "stub://replies/"
