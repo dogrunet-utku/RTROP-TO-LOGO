@@ -104,13 +104,13 @@ namespace RTROPToLogoIntegration.Infrastructure.Persistence
         /// Form1.cs -> UpdateINVDef metodunun birebir karşılığıdır.
         /// ABC Kodu, Min, Max ve Güvenlik stoğunu INVDEF tablosunda (INVENNO=0) günceller.
         /// </summary>
-        public async Task UpdateInvDefAsync(int itemRef, double minLevel, double maxLevel, double safeLevel, int abcCode, string firmNo)
+        public async Task UpdateInvDefAsync(int itemRef, double minLevel, double maxLevel, double safeLevel, int abcCode, string firmNo, int invenNo)
         {
-            // Form1.cs Satır 392 referans alınmıştır. (INVENNO=0 Merkez Ambar)
+            // Form1.cs Satır 392 referans alınmıştır. (INVENNO dinamik oldu)
             string sql = $@"
                 UPDATE LG_{firmNo}_INVDEF 
                 SET SAFELEVEL=@SafeLevel, ABCCODE=@AbcCode, MINLEVEL=@MinLevel, MAXLEVEL=@MaxLevel 
-                WHERE INVENNO=0 AND ITEMREF=@ItemRef";
+                WHERE INVENNO=@InvenNo AND ITEMREF=@ItemRef";
 
             using var connection = new SqlConnection(GetConnectionString());
             await connection.ExecuteAsync(sql, new 
@@ -119,7 +119,8 @@ namespace RTROPToLogoIntegration.Infrastructure.Persistence
                 MinLevel = minLevel, 
                 MaxLevel = maxLevel, 
                 SafeLevel = safeLevel, 
-                AbcCode = abcCode 
+                AbcCode = abcCode,
+                InvenNo = invenNo
             });
         }
 
@@ -176,7 +177,7 @@ namespace RTROPToLogoIntegration.Infrastructure.Persistence
             if (string.IsNullOrEmpty(newFicheNo))
             {
                 // İlk kayıt: MRP202502-00001
-                return $"{searchPattern}00001";
+                return $"{searchPattern}000001";
             }
 
             return newFicheNo;

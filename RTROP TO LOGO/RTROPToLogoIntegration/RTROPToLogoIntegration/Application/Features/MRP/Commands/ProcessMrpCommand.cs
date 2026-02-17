@@ -33,6 +33,7 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
             int mmWare = int.Parse(_config["WarehouseSettings:MM_Ambar"] ?? "3");
             int ymWare = int.Parse(_config["WarehouseSettings:YM_Ambar"] ?? "2");
             int hmWare = int.Parse(_config["WarehouseSettings:HM_Ambar"] ?? "1");
+            int logoUser = int.Parse(_config["LogoRestSettings:LogoUserNumber"] ?? "1");
 
             // 1. Fiş Numarasını Üret (Form1.cs mantığı)
             var ficheNo = await _stockRepository.GetLastMRPNumberAsync(request.FirmNo, request.PeriodNr);
@@ -42,10 +43,19 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
                 FICHENO = ficheNo,
                 NUMBER = ficheNo, // Form1.cs bunu da eşitliyor
                 DATE = DateTime.Now,
+                TIME = Convert.ToInt64(DateTime.Now.ToString("HHmmss")),
+                STATUS = 1,
+                XML_ATTRIBUTE = 1,
+                DEMAND_TYPE = 0,
+                DEMANDTYPE = 0,
+                USER_NO = logoUser,
+                USERNO = logoUser,
+                MPS_CODE = "MRP",
                 TRANSACTIONS = new Transactions { items = new List<TransactionItem>() }
             };
 
             int updatedCount = 0;
+            int lineCounter = 1;
 
             foreach (var item in request.Items)
             {
@@ -127,7 +137,8 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
                         item.Max,       // MaxLevel
                         item.SafetyStock, // SafeLevel
                         _abcCode,       // AbcCode
-                        request.FirmNo
+                        request.FirmNo,
+                        sourceIndex     // Dinamik Ambar No
                     );
                     
                     updatedCount++;
@@ -136,10 +147,15 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
                     var transItem = new TransactionItem
                     {
                         ITEMREF = itemRef,
+                        LINE_NO = lineCounter++,
+                        STATUS = 1,
+                        MRP_HEAD_TYPE = 2, // Varsayılan değer
+                        PORDER_TYPE = 0,
+                        BOM_TYPE = 0,
+                        XML_ATTRIBUTE = 1,
+                        
                         AMOUNT = need,
                         UNIT_CODE = unitCode, 
-                        MRP_HEAD_TYPE = 2, // Varsayılan değer
-                        STATUS = 1,
                         
                         // YENİ ALANLAR (Form1.cs mantığı)
                         SOURCE_INDEX = sourceIndex, 
@@ -152,6 +168,8 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
                     mrpList.TRANSACTIONS.items.Add(transItem);
                 }
             }
+            
+            mrpList.LINE_CNT = mrpList.TRANSACTIONS.items.Count;
 
             // Logo Gönderimi
             if (mrpList.TRANSACTIONS.items.Count > 0)
