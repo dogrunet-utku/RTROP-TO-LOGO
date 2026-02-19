@@ -12,8 +12,7 @@ namespace RTROPToLogoIntegration.Application.DTOs
         [Required(ErrorMessage = "ItemID zorunludur.")]
         public string ItemID { get; set; }
 
-        [Required(ErrorMessage = "ROP_update_OrderQuantity zorunludur.")]
-        public double ROP_update_OrderQuantity { get; set; }
+        public double? ROP_update_OrderQuantity { get; set; }
 
         // --- Opsiyonel Parametreler (null ise DB'den okunur) ---
         public string? ROP_update_ABCDClassification { get; set; }

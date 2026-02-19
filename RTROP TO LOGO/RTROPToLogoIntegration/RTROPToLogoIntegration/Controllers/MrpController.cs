@@ -48,8 +48,8 @@ namespace RTROPToLogoIntegration.Controllers
 
             try
             {
-                var result = await _bus.InvokeAsync<bool>(command);
-                return Ok(new { Message = "MRP Süreci Başarıyla Tamamlandı.", Result = result });
+                var result = await _bus.InvokeAsync<MrpResultDto>(command);
+                return Ok(result);
             }
             catch (ArgumentException ex)
             {
@@ -97,8 +97,8 @@ namespace RTROPToLogoIntegration.Controllers
                     PeriodNr = periodNr
                 };
 
-                var result = await _bus.InvokeAsync<bool>(command);
-                return Ok(new { Message = "MRP Excel Süreci Başarıyla Tamamlandı.", ProcessedItems = items.Count });
+                var result = await _bus.InvokeAsync<MrpResultDto>(command);
+                return Ok(result);
             }
             catch (ArgumentException ex)
             {

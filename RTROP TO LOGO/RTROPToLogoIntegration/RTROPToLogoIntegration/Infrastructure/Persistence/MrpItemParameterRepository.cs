@@ -31,7 +31,7 @@ namespace RTROPToLogoIntegration.Infrastructure.Persistence
         /// Parametre kaydını UPSERT eder (varsa güncelle, yoksa ekle). EF Core kullanır.
         /// </summary>
         public async Task UpsertAsync(string firmNo, string itemId, string? abcd, string? planningType,
-            double? safetyStock, double? rop, double? max, double orderQuantity)
+            double? safetyStock, double? rop, double? max, double? orderQuantity)
         {
             var existing = await _dbContext.MrpItemParameters
                 .FirstOrDefaultAsync(x => x.FirmNo == firmNo && x.ItemID == itemId);
@@ -44,7 +44,7 @@ namespace RTROPToLogoIntegration.Infrastructure.Persistence
                 if (safetyStock.HasValue) existing.SafetyStock = safetyStock.Value;
                 if (rop.HasValue) existing.ROP = rop.Value;
                 if (max.HasValue) existing.Max = max.Value;
-                existing.OrderQuantity = orderQuantity;
+                if (orderQuantity.HasValue) existing.OrderQuantity = orderQuantity.Value;
                 existing.UpdatedAt = DateTime.UtcNow;
             }
             else
@@ -59,7 +59,7 @@ namespace RTROPToLogoIntegration.Infrastructure.Persistence
                     SafetyStock = safetyStock ?? 0,
                     ROP = rop ?? 0,
                     Max = max ?? 0,
-                    OrderQuantity = orderQuantity,
+                    OrderQuantity = orderQuantity ?? 0,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow
                 };

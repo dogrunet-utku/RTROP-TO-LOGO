@@ -44,7 +44,7 @@ namespace RTROPToLogoIntegration.Infrastructure.Services
                         dto.SafetyStock = worksheet.Cells[row, 4].Value != null ? Convert.ToDouble(worksheet.Cells[row, 4].Value) : null;
                         dto.ROP = worksheet.Cells[row, 5].Value != null ? Convert.ToDouble(worksheet.Cells[row, 5].Value) : null;
                         dto.Max = worksheet.Cells[row, 6].Value != null ? Convert.ToDouble(worksheet.Cells[row, 6].Value) : null;
-                        dto.ROP_update_OrderQuantity = Convert.ToDouble(worksheet.Cells[row, 7].Value ?? 0);
+                        dto.ROP_update_OrderQuantity = worksheet.Cells[row, 7].Value != null ? Convert.ToDouble(worksheet.Cells[row, 7].Value) : null;
                         
                         // ItemType (12) ve Ambar (13) kullanıcıdan istenmiyor.
                         // Mantık arka planda (CardType vb.) halledilecek.

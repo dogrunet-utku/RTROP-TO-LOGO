@@ -41,3 +41,61 @@ The service registration for Microsoft.EntityFrameworkCore.DbContextOptions<RTRO
 2026-02-19 10:08:44.460 +03:00 [INF] MRP İşlemi Tamamlandı. 4 adet ürün işlendi. Fiş No: MRP202602-000010
 2026-02-19 10:08:44.464 +03:00 [INF] HTTP POST /api/Mrp/calculate-json responded 200 in 3015.6982 ms
 2026-02-19 10:28:49.944 +03:00 [INF] Stopped message listener at "stub://replies/"
+2026-02-19 11:31:45.895 +03:00 [INF] Uygulama başlatılıyor...
+2026-02-19 11:31:48.455 +03:00 [INF] Exporting Open Telemetry metrics from Wolverine with name Wolverine:RTROPToLogoIntegration, version 5.15.0.0
+2026-02-19 11:31:48.494 +03:00 [INF] Starting Wolverine messaging for application assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+2026-02-19 11:31:48.494 +03:00 [INF] The Wolverine code generation mode is Dynamic. This is suitable for development, but you may want to opt into other options for production usage to reduce start up time and resource utilization.
+2026-02-19 11:31:48.494 +03:00 [INF] See https://wolverine.netlify.app/guide/codegen.html for more information
+2026-02-19 11:31:48.504 +03:00 [INF] Searching assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null for Wolverine message handlers
+2026-02-19 11:31:48.537 +03:00 [INF] Wolverine assigned node id for envelope persistence is -344160219
+2026-02-19 11:31:48.556 +03:00 [INF] Started message listening at "stub://replies/"
+2026-02-19 11:32:45.658 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-02-19 11:32:48.922 +03:00 [INF] Utilizing service location for Message Handler for RTROPToLogoIntegration.Application.Features.MRP.Commands.ProcessMrpCommand for Service RTROPToLogoIntegration.Infrastructure.Persistence.MrpItemParameterRepository: 
+Dependency: Descriptor: ServiceType: RTROPToLogoIntegration.Infrastructure.Identity.AppIdentityDbContext Lifetime: Scoped ImplementationType: RTROPToLogoIntegration.Infrastructure.Identity.AppIdentityDbContext
+
+Dependency: Descriptor: ServiceType: Microsoft.EntityFrameworkCore.DbContextOptions`1[RTROPToLogoIntegration.Infrastructure.Identity.AppIdentityDbContext] Lifetime: Scoped ImplementationFactory: System.Object <AddCoreServices>b__0(System.IServiceProvider)
+The service registration for Microsoft.EntityFrameworkCore.DbContextOptions<RTROPToLogoIntegration.Infrastructure.Identity.AppIdentityDbContext> is an 'opaque' lambda factory with the Scoped lifetime and requires service location
+
+. See https://wolverinefx.net/guide/codegen.html
+2026-02-19 11:32:51.329 +03:00 [WRN] Malzeme Logo'da bulunamadı, atlaniyor ve kaydedilmiyor: 7024NT
+2026-02-19 11:32:56.376 +03:00 [INF] Logo MRP Kaydı Başarılı. Fiş No: MRP202602-000011
+2026-02-19 11:32:56.377 +03:00 [INF] MRP İşlemi Tamamlandı. 4 adet ürün işlendi. Fiş No: MRP202602-000011
+2026-02-19 11:32:56.566 +03:00 [INF] HTTP POST /api/Mrp/calculate-json responded 200 in 10923.4692 ms
+2026-02-19 11:56:59.912 +03:00 [INF] HTTP POST /api/Mrp/calculate-json responded 400 in 42.8999 ms
+2026-02-19 11:57:27.289 +03:00 [WRN] Malzeme Logo'da bulunamadı, atlaniyor ve kaydedilmiyor: 7024NT
+2026-02-19 11:57:28.661 +03:00 [INF] Logo MRP Kaydı Başarılı. Fiş No: MRP202602-000012
+2026-02-19 11:57:28.662 +03:00 [INF] MRP İşlemi Tamamlandı. 4 adet ürün işlendi. Fiş No: MRP202602-000012
+2026-02-19 11:57:28.668 +03:00 [INF] HTTP POST /api/Mrp/calculate-json responded 200 in 2563.6152 ms
+2026-02-19 11:59:04.379 +03:00 [WRN] Malzeme Logo'da bulunamadı, atlaniyor ve kaydedilmiyor: 7024NT
+2026-02-19 11:59:05.789 +03:00 [INF] Logo MRP Kaydı Başarılı. Fiş No: MRP202602-000013
+2026-02-19 11:59:05.789 +03:00 [INF] MRP İşlemi Tamamlandı. 4 adet ürün işlendi. Fiş No: MRP202602-000013
+2026-02-19 11:59:05.795 +03:00 [INF] HTTP POST /api/Mrp/calculate-json responded 200 in 2330.1787 ms
+2026-02-19 12:49:47.122 +03:00 [INF] Uygulama başlatılıyor...
+2026-02-19 12:49:48.061 +03:00 [INF] Exporting Open Telemetry metrics from Wolverine with name Wolverine:RTROPToLogoIntegration, version 5.15.0.0
+2026-02-19 12:49:48.089 +03:00 [INF] Starting Wolverine messaging for application assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+2026-02-19 12:49:48.089 +03:00 [INF] The Wolverine code generation mode is Dynamic. This is suitable for development, but you may want to opt into other options for production usage to reduce start up time and resource utilization.
+2026-02-19 12:49:48.089 +03:00 [INF] See https://wolverine.netlify.app/guide/codegen.html for more information
+2026-02-19 12:49:48.097 +03:00 [INF] Searching assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null for Wolverine message handlers
+2026-02-19 12:49:48.128 +03:00 [INF] Wolverine assigned node id for envelope persistence is 1579971280
+2026-02-19 12:49:48.143 +03:00 [INF] Started message listening at "stub://replies/"
+2026-02-19 12:50:15.126 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-02-19 12:50:17.834 +03:00 [INF] Utilizing service location for Message Handler for RTROPToLogoIntegration.Application.Features.MRP.Commands.ProcessMrpCommand for Service RTROPToLogoIntegration.Infrastructure.Persistence.MrpItemParameterRepository: 
+Dependency: Descriptor: ServiceType: RTROPToLogoIntegration.Infrastructure.Identity.AppIdentityDbContext Lifetime: Scoped ImplementationType: RTROPToLogoIntegration.Infrastructure.Identity.AppIdentityDbContext
+
+Dependency: Descriptor: ServiceType: Microsoft.EntityFrameworkCore.DbContextOptions`1[RTROPToLogoIntegration.Infrastructure.Identity.AppIdentityDbContext] Lifetime: Scoped ImplementationFactory: System.Object <AddCoreServices>b__0(System.IServiceProvider)
+The service registration for Microsoft.EntityFrameworkCore.DbContextOptions<RTROPToLogoIntegration.Infrastructure.Identity.AppIdentityDbContext> is an 'opaque' lambda factory with the Scoped lifetime and requires service location
+
+. See https://wolverinefx.net/guide/codegen.html
+2026-02-19 12:50:19.513 +03:00 [WRN] OrderQuantity belirlenemedi. Atlanan malzeme: 700A10NT
+2026-02-19 12:50:19.515 +03:00 [WRN] Malzeme Logo'da bulunamadı, atlaniyor ve kaydedilmiyor: 7024NT
+2026-02-19 12:50:23.684 +03:00 [INF] Logo MRP Kaydı Başarılı. Fiş No: MRP202602-000014
+2026-02-19 12:50:23.685 +03:00 [INF] MRP İşlemi Tamamlandı. 3 adet ürün işlendi. Fiş No: MRP202602-000014
+2026-02-19 12:50:23.838 +03:00 [INF] HTTP POST /api/Mrp/calculate-json responded 200 in 8723.8967 ms
+2026-02-19 12:51:37.990 +03:00 [WRN] OrderQuantity belirlenemedi. Atlanan malzeme: 700A10NT
+2026-02-19 12:51:39.149 +03:00 [INF] Logo MRP Kaydı Başarılı. Fiş No: MRP202602-000015
+2026-02-19 12:51:39.149 +03:00 [INF] MRP İşlemi Tamamlandı. 3 adet ürün işlendi. Fiş No: MRP202602-000015
+2026-02-19 12:51:39.159 +03:00 [INF] HTTP POST /api/Mrp/calculate-json responded 200 in 2172.7679 ms
+2026-02-19 12:52:00.572 +03:00 [INF] Logo MRP Kaydı Başarılı. Fiş No: MRP202602-000016
+2026-02-19 12:52:00.573 +03:00 [INF] MRP İşlemi Tamamlandı. 5 adet ürün işlendi. Fiş No: MRP202602-000016
+2026-02-19 12:52:00.577 +03:00 [INF] HTTP POST /api/Mrp/calculate-json responded 200 in 2745.6898 ms
+2026-02-19 12:54:49.594 +03:00 [INF] Stopped message listener at "stub://replies/"

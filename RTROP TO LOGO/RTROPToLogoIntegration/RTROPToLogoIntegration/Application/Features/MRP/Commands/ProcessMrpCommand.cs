@@ -33,7 +33,7 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
             _config = config;
         }
 
-        public async Task<bool> Handle(ProcessMrpCommand request)
+        public async Task<MrpResultDto> Handle(ProcessMrpCommand request)
         {
             // ========== STEP 0: Firma Validasyonu (L_CAPIFIRM) ==========
             var firmExists = await _stockRepository.FirmExistsAsync(request.FirmNo);
@@ -70,10 +70,21 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
             int updatedCount = 0;
             int lineCounter = 1;
             var skippedItems = new List<string>(); // Parametresi eksik atlanmış itemler
+            var result = new MrpResultDto { SentCount = request.Items.Count };
 
             foreach (var item in request.Items)
             {
-                // ========== STEP 1: UPSERT — Parametreleri DB'ye kaydet/güncelle ==========
+                // ========== STEP 1: Logo'da ürünü doğrula (UPSERT'ten ÖNCE!) ==========
+                var (itemRef, unitCode, _) = await _stockRepository.GetItemRefAndUnitByCodeAsync(item.ItemID, request.FirmNo);
+
+                if (itemRef == 0)
+                {
+                    Log.Warning("Malzeme Logo'da bulunamadı, atlaniyor ve kaydedilmiyor: {ItemID}", item.ItemID);
+                    skippedItems.Add(item.ItemID);
+                    continue;
+                }
+
+                // ========== STEP 2: UPSERT — Logo'da doğrulandıktan SONRA parametreleri kaydet ==========
                 await _paramRepo.UpsertAsync(
                     request.FirmNo,
                     item.ItemID,
@@ -85,17 +96,17 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
                     item.ROP_update_OrderQuantity
                 );
 
-                // ========== STEP 2: Efektif parametreleri belirle ==========
-                // Gelen değer varsa onu kullan, yoksa DB'den oku
+                // ========== STEP 3: Efektif parametreleri belirle ==========
                 string? effectiveAbcd = item.ROP_update_ABCDClassification;
                 string? effectivePlanningType = item.PlanningType;
                 double effectiveSafetyStock = item.SafetyStock ?? 0;
                 double effectiveRop = item.ROP ?? 0;
                 double effectiveMax = item.Max ?? 0;
+                double? effectiveOrderQty = item.ROP_update_OrderQuantity;
 
-                // Herhangi bir zorunlu parametre eksikse DB'den oku
                 bool needsDbFallback = string.IsNullOrWhiteSpace(effectivePlanningType) 
-                                    || effectiveRop == 0;
+                                    || effectiveRop == 0
+                                    || !effectiveOrderQty.HasValue;
 
                 if (needsDbFallback)
                 {
@@ -103,26 +114,23 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
 
                     if (dbParam == null || string.IsNullOrWhiteSpace(dbParam.PlanningType))
                     {
-                        // DB'de de yok — bu item atlanacak
                         Log.Warning("Parametreler eksik ve DB'de kayıt yok. Atlanan malzeme: {ItemID}", item.ItemID);
                         skippedItems.Add(item.ItemID);
                         continue;
                     }
 
-                    // DB'den fallback
                     if (string.IsNullOrWhiteSpace(effectiveAbcd)) effectiveAbcd = dbParam.ABCDClassification;
                     if (string.IsNullOrWhiteSpace(effectivePlanningType)) effectivePlanningType = dbParam.PlanningType;
                     if (effectiveSafetyStock == 0) effectiveSafetyStock = dbParam.SafetyStock;
                     if (effectiveRop == 0) effectiveRop = dbParam.ROP;
                     if (effectiveMax == 0) effectiveMax = dbParam.Max;
+                    if (!effectiveOrderQty.HasValue) effectiveOrderQty = dbParam.OrderQuantity;
                 }
 
-                // ========== STEP 3: Logo DB'den ItemRef, UnitCode, CardType çözümle ==========
-                var (itemRef, unitCode, _) = await _stockRepository.GetItemRefAndUnitByCodeAsync(item.ItemID, request.FirmNo);
-
-                if (itemRef == 0)
+                // Final validation — OrderQuantity olmadan devam edilemez
+                if (!effectiveOrderQty.HasValue || effectiveOrderQty.Value == 0)
                 {
-                    Log.Warning("Malzeme Logo'da bulunamadı: {ItemID}", item.ItemID);
+                    Log.Warning("OrderQuantity belirlenemedi. Atlanan malzeme: {ItemID}", item.ItemID);
                     skippedItems.Add(item.ItemID);
                     continue;
                 }
@@ -133,7 +141,7 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
 
                 var netStock = stockQty + openPo;
                 var ropGap = effectiveRop - netStock;
-                double need = item.ROP_update_OrderQuantity - ropGap;
+                double need = effectiveOrderQty.Value - ropGap;
 
                 // ========== STEP 5: MTS Kararı ==========
                 if (netStock < effectiveRop && effectivePlanningType == "MTS")
@@ -142,35 +150,33 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
 
                     int sourceIndex = 0;
                     int meetType = 0;
-                    int bomRef = 0, bomRevRef = 0, clientRef = 0;
+                    int bomRefValue = 0, bomRevRefValue = 0, clientRef = 0;
 
-                    if (cardType == "10") // HAMMADDE
+                    if (cardType == "10")
                     {
                         sourceIndex = hmWare;
                         meetType = 0;
                         clientRef = await _stockRepository.GetClientRefAsync(itemRef, request.FirmNo);
                     }
-                    else if (cardType == "11") // YARI MAMUL
+                    else if (cardType == "11")
                     {
                         sourceIndex = ymWare;
                         meetType = 1;
-                        (bomRef, bomRevRef) = await _stockRepository.GetBomInfoAsync(itemRef, request.FirmNo);
+                        (bomRefValue, bomRevRefValue) = await _stockRepository.GetBomInfoAsync(itemRef, request.FirmNo);
                     }
-                    else if (cardType == "12") // MAMUL
+                    else if (cardType == "12")
                     {
                         sourceIndex = mmWare;
                         meetType = 1;
-                        (bomRef, bomRevRef) = await _stockRepository.GetBomInfoAsync(itemRef, request.FirmNo);
+                        (bomRefValue, bomRevRefValue) = await _stockRepository.GetBomInfoAsync(itemRef, request.FirmNo);
                     }
                     else
                     {
                         Log.Debug("Bilinmeyen CardType: {CardType} Item: {ItemID}", cardType, item.ItemID);
                     }
 
-                    // SPECODE2 güncelle
                     await _stockRepository.UpdateItemSpeCode2Async(itemRef, "MTS", request.FirmNo);
 
-                    // ABC Kodu
                     string abcRaw = effectiveAbcd?.ToUpper() ?? "";
                     int abcCode = abcRaw switch
                     {
@@ -180,7 +186,6 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
                         _ => 0
                     };
 
-                    // INVDEF güncelle
                     await _stockRepository.UpdateInvDefAsync(
                         itemRef, effectiveRop, effectiveMax, effectiveSafetyStock,
                         abcCode, request.FirmNo, sourceIndex
@@ -188,7 +193,6 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
 
                     updatedCount++;
 
-                    // Transaction satırı
                     var transItem = new TransactionItem
                     {
                         ITEMREF = itemRef,
@@ -202,16 +206,26 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
                         UNIT_CODE = unitCode,
                         SOURCE_INDEX = sourceIndex,
                         MEET_TYPE = meetType,
-                        BOMMASTERREF = bomRef,
-                        BOMREVREF = bomRevRef,
+                        BOMMASTERREF = bomRefValue,
+                        BOMREVREF = bomRevRefValue,
                         CLIENTREF = clientRef
                     };
 
                     mrpList.TRANSACTIONS.items.Add(transItem);
                 }
+                else
+                {
+                    // MTS değil veya stok yeterli — UPSERT yapıldı ama talep fişine eklenmedi
+                    updatedCount++;
+                }
             }
 
             mrpList.LINE_CNT = mrpList.TRANSACTIONS.items.Count;
+
+            // Result'ı doldur
+            result.UpdateCount = updatedCount;
+            result.FailedCount = skippedItems.Count;
+            result.FailedItems = skippedItems;
 
             // ========== STEP 6: Logo'ya Gönder ==========
             if (mrpList.TRANSACTIONS.items.Count > 0)
@@ -219,6 +233,9 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
                 try
                 {
                     await _logoClientService.PostDemandFicheAsync(mrpList, request.FirmNo);
+                    result.DemandSlipCreated = true;
+                    result.FicheNo = mrpList.FICHENO;
+                    result.DemandLineCount = mrpList.TRANSACTIONS.items.Count;
                     Log.Information("MRP İşlemi Tamamlandı. {Count} adet ürün işlendi. Fiş No: {FicheNo}",
                         mrpList.TRANSACTIONS.items.Count, mrpList.FICHENO);
                 }
@@ -230,10 +247,11 @@ namespace RTROPToLogoIntegration.Application.Features.MRP.Commands
             }
             else
             {
+                result.DemandSlipCreated = false;
                 Log.Information("MRP İşlemi: İşlenecek veya ihtiyaç duyulan MTS kaydı bulunamadı.");
             }
 
-            return true;
+            return result;
         }
     }
 }
