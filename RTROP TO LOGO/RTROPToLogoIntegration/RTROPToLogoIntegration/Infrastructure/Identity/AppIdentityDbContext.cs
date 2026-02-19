@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using RTROPToLogoIntegration.Domain.Entities;
 
 namespace RTROPToLogoIntegration.Infrastructure.Identity
 {
@@ -15,6 +16,7 @@ namespace RTROPToLogoIntegration.Infrastructure.Identity
 
         public DbSet<RTROPToLogoIntegration.Domain.Entities.LogIncomingRequest> LogIncomingRequests { get; set; }
         public DbSet<RTROPToLogoIntegration.Domain.Entities.ApplicationLog> Logs { get; set; } // Serilog Logs table
+        public DbSet<MrpItemParameter> MrpItemParameters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -22,6 +24,16 @@ namespace RTROPToLogoIntegration.Infrastructure.Identity
 
             builder.Entity<RTROPToLogoIntegration.Domain.Entities.LogIncomingRequest>()
                 .HasIndex(l => l.TransactionId);
+
+            builder.Entity<MrpItemParameter>(entity =>
+            {
+                entity.HasIndex(e => new { e.FirmNo, e.ItemID })
+                      .IsUnique()
+                      .HasDatabaseName("IX_MRP_ITEM_PARAMETERS_FirmNo_ItemID");
+
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
+                entity.Property(e => e.UpdatedAt).HasDefaultValueSql("GETUTCDATE()");
+            });
         }
     }
 }
