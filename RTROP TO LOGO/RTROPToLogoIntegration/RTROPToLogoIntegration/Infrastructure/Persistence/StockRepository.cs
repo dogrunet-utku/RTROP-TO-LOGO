@@ -216,5 +216,16 @@ namespace RTROPToLogoIntegration.Infrastructure.Persistence
             var result = await conn.ExecuteScalarAsync<int?>(sql, new { ItemRef = itemRef });
             return result ?? 0;
         }
+    /// <summary>
+        /// Logo'da firma numarasının var olup olmadığını kontrol eder.
+        /// L_CAPIFIRM tablosunun NR kolonuna bakılır.
+        /// </summary>
+        public async Task<bool> FirmExistsAsync(string firmNo)
+        {
+            const string sql = "SELECT COUNT(1) FROM L_CAPIFIRM WITH(NOLOCK) WHERE NR = @FirmNo";
+            using var connection = new SqlConnection(GetConnectionString());
+            var count = await connection.ExecuteScalarAsync<int>(sql, new { FirmNo = firmNo });
+            return count > 0;
+        }
     }
 }

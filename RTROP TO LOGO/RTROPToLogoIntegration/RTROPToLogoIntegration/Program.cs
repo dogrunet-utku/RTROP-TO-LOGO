@@ -123,6 +123,7 @@ try
     builder.Services.AddScoped<LogoClientService>();
     builder.Services.AddScoped<ExcelService>();
     builder.Services.AddScoped<AuditRepository>(); // Audit Repository Kaydı
+    builder.Services.AddScoped<MrpItemParameterRepository>();
 
     // Wolverine Yapılandırması
     builder.Host.UseWolverine(opts =>

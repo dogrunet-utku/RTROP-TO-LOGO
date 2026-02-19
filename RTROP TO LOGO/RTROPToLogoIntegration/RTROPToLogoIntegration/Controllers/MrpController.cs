@@ -51,6 +51,15 @@ namespace RTROPToLogoIntegration.Controllers
                 var result = await _bus.InvokeAsync<bool>(command);
                 return Ok(new { Message = "MRP Süreci Başarıyla Tamamlandı.", Result = result });
             }
+            catch (ArgumentException ex)
+            {
+                Log.Warning(ex, "MRP isteği validasyon hatası.");
+                return BadRequest(new
+                {
+                    Success = false,
+                    Message = ex.Message
+                });
+            }
             catch (Exception ex)
             {
                 Log.Error(ex, "MRP JSON işlemi hatası.");
@@ -90,6 +99,15 @@ namespace RTROPToLogoIntegration.Controllers
 
                 var result = await _bus.InvokeAsync<bool>(command);
                 return Ok(new { Message = "MRP Excel Süreci Başarıyla Tamamlandı.", ProcessedItems = items.Count });
+            }
+            catch (ArgumentException ex)
+            {
+                Log.Warning(ex, "MRP isteği validasyon hatası.");
+                return BadRequest(new
+                {
+                    Success = false,
+                    Message = ex.Message
+                });
             }
             catch (Exception ex)
             {

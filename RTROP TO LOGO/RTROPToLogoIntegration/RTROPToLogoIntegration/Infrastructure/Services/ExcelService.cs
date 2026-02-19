@@ -41,16 +41,10 @@ namespace RTROPToLogoIntegration.Infrastructure.Services
                         dto.ROP_update_ABCDClassification = worksheet.Cells[row, 2].Value?.ToString();
                         dto.PlanningType = worksheet.Cells[row, 3].Value?.ToString();
                         
-                        dto.SafetyStock = Convert.ToDouble(worksheet.Cells[row, 4].Value ?? 0);
-                        dto.ROP = Convert.ToDouble(worksheet.Cells[row, 5].Value ?? 0);
-                        dto.Max = Convert.ToDouble(worksheet.Cells[row, 6].Value ?? 0);
+                        dto.SafetyStock = worksheet.Cells[row, 4].Value != null ? Convert.ToDouble(worksheet.Cells[row, 4].Value) : null;
+                        dto.ROP = worksheet.Cells[row, 5].Value != null ? Convert.ToDouble(worksheet.Cells[row, 5].Value) : null;
+                        dto.Max = worksheet.Cells[row, 6].Value != null ? Convert.ToDouble(worksheet.Cells[row, 6].Value) : null;
                         dto.ROP_update_OrderQuantity = Convert.ToDouble(worksheet.Cells[row, 7].Value ?? 0);
-
-                        // Yeni Sütunlar (Phase 14)
-                        dto.ItemRef = Convert.ToInt32(worksheet.Cells[row, 8].Value ?? 0);
-                        dto.BomMasterRef = Convert.ToInt32(worksheet.Cells[row, 9].Value ?? 0);
-                        dto.BomRevRef = Convert.ToInt32(worksheet.Cells[row, 10].Value ?? 0);
-                        dto.ClientRef = Convert.ToInt32(worksheet.Cells[row, 11].Value ?? 0);
                         
                         // ItemType (12) ve Ambar (13) kullanıcıdan istenmiyor.
                         // Mantık arka planda (CardType vb.) halledilecek.
