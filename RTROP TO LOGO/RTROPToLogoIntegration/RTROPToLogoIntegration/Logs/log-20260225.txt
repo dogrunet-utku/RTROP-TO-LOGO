@@ -1,0 +1,53 @@
+2026-02-25 21:58:47.969 +03:00 [INF] Uygulama başlatılıyor...
+2026-02-25 21:58:48.567 +03:00 [ERR] Failed executing DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Logs] ADD [TransactionId] nvarchar(50) NULL;
+2026-02-25 21:58:48.571 +03:00 [ERR] Veritabanı migration/seed sırasında hata oluştu.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot find the object "Logs" because it does not exist or you do not have permissions.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean isAsync, Int32 timeout, Boolean asyncWrite)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQuery(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Migrations.MigrationCommand.ExecuteNonQuery(IRelationalConnection connection, IReadOnlyDictionary`2 parameterValues)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQuery(IEnumerable`1 migrationCommands, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.Migrate(String targetMigration)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.Migrate(DatabaseFacade databaseFacade)
+   at RTROPToLogoIntegration.Infrastructure.Extensions.MigrationManager.MigrateDatabase(IHost host) in C:\Users\Utku\Documents\GitHub\RTROP-TO-LOGO\RTROP TO LOGO\RTROPToLogoIntegration\RTROPToLogoIntegration\Infrastructure\Extensions\MigrationManager.cs:line 25
+ClientConnectionId:f4f90bfa-9506-4bc3-9f6f-bc824270b507
+Hata Numarası: 4902,Durum: 1,Sınıf:16
+2026-02-25 21:58:48.625 +03:00 [INF] Exporting Open Telemetry metrics from Wolverine with name Wolverine:RTROPToLogoIntegration, version 5.15.0.0
+2026-02-25 21:58:48.643 +03:00 [INF] Starting Wolverine messaging for application assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+2026-02-25 21:58:48.643 +03:00 [INF] The Wolverine code generation mode is Dynamic. This is suitable for development, but you may want to opt into other options for production usage to reduce start up time and resource utilization.
+2026-02-25 21:58:48.643 +03:00 [INF] See https://wolverine.netlify.app/guide/codegen.html for more information
+2026-02-25 21:58:48.650 +03:00 [INF] Searching assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null for Wolverine message handlers
+2026-02-25 21:58:48.677 +03:00 [INF] Wolverine assigned node id for envelope persistence is -1597831328
+2026-02-25 21:58:48.693 +03:00 [INF] Started message listening at "stub://replies/"
+2026-02-25 22:10:57.146 +03:00 [INF] Stopped message listener at "stub://replies/"
+2026-02-25 22:18:21.797 +03:00 [INF] Uygulama başlatılıyor...
+2026-02-25 22:18:22.822 +03:00 [INF] Admin kullanıcısı oluşturuldu.
+2026-02-25 22:18:22.869 +03:00 [INF] Exporting Open Telemetry metrics from Wolverine with name Wolverine:RTROPToLogoIntegration, version 5.15.0.0
+2026-02-25 22:18:22.893 +03:00 [INF] Starting Wolverine messaging for application assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+2026-02-25 22:18:22.893 +03:00 [INF] The Wolverine code generation mode is Dynamic. This is suitable for development, but you may want to opt into other options for production usage to reduce start up time and resource utilization.
+2026-02-25 22:18:22.893 +03:00 [INF] See https://wolverine.netlify.app/guide/codegen.html for more information
+2026-02-25 22:18:22.900 +03:00 [INF] Searching assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null for Wolverine message handlers
+2026-02-25 22:18:22.929 +03:00 [INF] Wolverine assigned node id for envelope persistence is 1855346055
+2026-02-25 22:18:22.943 +03:00 [INF] Started message listening at "stub://replies/"
+2026-02-25 22:18:31.772 +03:00 [INF] Stopped message listener at "stub://replies/"
+2026-02-25 22:19:08.238 +03:00 [INF] Uygulama başlatılıyor...
+2026-02-25 22:19:09.333 +03:00 [INF] Admin kullanıcısı oluşturuldu.
+2026-02-25 22:19:09.382 +03:00 [INF] Exporting Open Telemetry metrics from Wolverine with name Wolverine:RTROPToLogoIntegration, version 5.15.0.0
+2026-02-25 22:19:09.400 +03:00 [INF] Starting Wolverine messaging for application assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+2026-02-25 22:19:09.400 +03:00 [INF] The Wolverine code generation mode is Dynamic. This is suitable for development, but you may want to opt into other options for production usage to reduce start up time and resource utilization.
+2026-02-25 22:19:09.400 +03:00 [INF] See https://wolverine.netlify.app/guide/codegen.html for more information
+2026-02-25 22:19:09.406 +03:00 [INF] Searching assembly RTROPToLogoIntegration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null for Wolverine message handlers
+2026-02-25 22:19:09.430 +03:00 [INF] Wolverine assigned node id for envelope persistence is 59073819
+2026-02-25 22:19:09.442 +03:00 [INF] Started message listening at "stub://replies/"
+2026-02-25 22:19:42.188 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-02-25 22:19:42.436 +03:00 [INF] Kullanıcı başarıyla giriş yaptı. User: Admin
+2026-02-25 22:19:42.542 +03:00 [INF] HTTP POST /api/Auth/login responded 200 in 367.0292 ms
+2026-02-25 22:22:07.805 +03:00 [INF] HTTP POST /api/Auth/refresh responded 404 in 54.8706 ms
+2026-02-25 22:22:45.456 +03:00 [INF] HTTP POST /api/Auth/refresh responded 404 in 7.9593 ms
+2026-02-25 22:22:49.190 +03:00 [INF] Stopped message listener at "stub://replies/"

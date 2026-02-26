@@ -8,23 +8,25 @@ namespace RTROPToLogoIntegration.Migrations
     /// <inheritdoc />
     public partial class AddSerilogExtendedColumns : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            // Logs tablosu zaten var olduğu için sadece yeni kolonları ekliyoruz.
-            migrationBuilder.AddColumn<string>(
-                name: "TransactionId",
-                table: "Logs",
-                type: "nvarchar(50)",
-                maxLength: 50,
-                nullable: true);
+            // Master Architect: Self-healing idempotent script.
+            // Checks if the Logs table exists, and only adds the columns if they are missing.
+            // This prevents conflicts with Serilog's autoCreateSqlTable feature.
+            migrationBuilder.Sql(@"
+                IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Logs')
+                BEGIN
+                    IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[Logs]') AND name = 'TransactionId')
+                    BEGIN
+                        ALTER TABLE [Logs] ADD [TransactionId] nvarchar(50) NULL;
+                    END
 
-            migrationBuilder.AddColumn<string>(
-                name: "UserId",
-                table: "Logs",
-                type: "nvarchar(100)",
-                maxLength: 100,
-                nullable: true);
+                    IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[Logs]') AND name = 'UserId')
+                    BEGIN
+                        ALTER TABLE [Logs] ADD [UserId] nvarchar(100) NULL;
+                    END
+                END
+            ");
         }
 
         /// <inheritdoc />
